@@ -9,7 +9,7 @@ Membangun dan membandingkan 2 model regresi linier
 3. Dilarang memakai dataset mainstream
    
 Isi Laporan (maksimal 10 halaman):
-1. penjelasan data & pipeline preprocessing
+1. Penjelasan data & pipeline preprocessing
 2. Experiment Log : Tabel semua percobaan, model, fitur, parameter, skor, catatan
 3. Adanya keterbaruan atau ubah ngoding jika copy paster di tools AI (chatgpt/gemini)
 4. Perbandingan baseline regresi linier dengan model regresi linier yg terbaru
