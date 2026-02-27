@@ -1,31 +1,75 @@
-# ML_Assignment_regression
-Tugas Kelompok
+# Kelompok 2 Machine Learning 1
 
-Membangun dan membandingkan 2 model regresi linier
+# 1. Muhammad Rizky (2310817310011)
 
-1 tim = 3-4 anggota (yang dibagikan oleh PJ kelas)
-1. Cari dataset regresi publik lebih dari sama dengan 2000 baris dengan lebih dari sama dengan 10 fitur (target kontinu)
-2. Memilih minimal satu: missing value/outlier/fitur kategorikal/tim-related
-3. Dilarang memakai dataset mainstream
-   
-Isi Laporan (maksimal 10 halaman):
-1. Penjelasan data & pipeline preprocessing
-2. Experiment Log : Tabel semua percobaan, model, fitur, parameter, skor, catatan
-3. Adanya keterbaruan atau ubah ngoding jika copy paster di tools AI (chatgpt/gemini)
-4. Perbandingan baseline regresi linier dengan model regresi linier yg terbaru
-5. Hasil Evaluasi: MAE, RMSE, MAPE,R2 (Metriks) | K-fold (Validasi)
-6. Opsional : Stress Test (Outlier Stress/Noise Stress/Distribution Shift) vs Performance 
+# 2. Jovan Gilbert Natamasindah (2310817310002)
 
-Upload di github:
+# 3. Devi Hafida Ariyani (2310817220018)
 
-1. Dataset
-2. File koding
-3. Report/Laporan
-4. Log Prompt penting (kodingan yang diubah)
-5. Log Experiment
-6. README
+# Perbandingan Linear Regression vs Huber Regressor pada Prediksi Emisi CO
 
+## Ringkasan
 
-Presentasikan diberupa Video dengan durasi maksimal 10 menit (disertai dengan wajah anggota yang mempresentasi) dan upload di Youtube (Publik)
+Proyek ini membandingkan dua model regresi untuk memprediksi variabel `CO` dari data turbin gas pada file `gt_2015.csv`:
 
-Link Youtube bisa di masukkan di dalam laporan&github
+- `LinearRegression` sebagai baseline.
+- `HuberRegressor` sebagai model yang lebih robust terhadap outlier.
+
+Evaluasi dilakukan menggunakan 5-Fold Cross Validation dan metrik `MAE`, `RMSE`, `MAPE`, serta `R2`. Hasil eksperimen dicatat otomatis ke `experiment_log.csv`.
+
+## Struktur Proyek
+
+- `model.py`: Skrip utama training, evaluasi, stress test outlier, dan logging hasil.
+- `dataset/gt_2015.csv`: Dataset input.
+- `experiment_log.csv`: Rekap hasil eksperimen.
+
+## Dataset dan Target
+
+Dataset berisi fitur operasi turbin gas seperti `AT`, `AP`, `AH`, `GTEP`, `TEY`, dll. Target prediksi adalah:
+
+- `CO`
+
+Pembagian variabel pada skrip:
+
+- Fitur (`X`): semua kolom selain `CO`.
+- Target (`y`): kolom `CO`.
+
+## Metodologi
+
+1. Deteksi outlier awal pada target `y` menggunakan Z-Score dengan ambang `|z| > 3.0`.
+2. Siapkan dua pipeline model dengan `StandardScaler`.
+3. Lakukan evaluasi baseline (data asli) dengan `KFold(n_splits=5, shuffle=True, random_state=42)`.
+4. Lakukan stress test outlier dengan cara:
+   - menambahkan indeks random (`add_outliers = 600`),
+   - mengalikan nilai target terpilih dengan faktor `5`.
+5. Evaluasi ulang kedua model pada data hasil stress test.
+6. Simpan ringkasan mean dan std tiap metrik ke `experiment_log.csv`.
+
+## Hasil Eksperimen
+
+Berdasarkan `experiment_log.csv` yang ada di proyek saat ini:
+
+- Kondisi normal (tanpa stress): `HuberRegressor` sedikit lebih baik pada `MAE` dan `MAPE`, dengan `R2` yang setara dengan `LinearRegression`.
+- Kondisi stress outlier: `HuberRegressor` menunjukkan `MAE` dan `MAPE` yang jauh lebih baik dibanding baseline OLS.
+
+## Kebutuhan Environment
+
+Gunakan Python 3.9+ dengan library berikut:
+
+- `pandas`
+- `numpy`
+- `scikit-learn`
+
+## Cara Menjalankan
+
+Dari root proyek, jalankan:
+
+```bash
+python model.py
+```
+
+Output utama:
+
+- Jumlah outlier terdeteksi.
+- Tabel hasil eksperimen di terminal.
+- File `experiment_log.csv` yang terbarui.

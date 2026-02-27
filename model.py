@@ -75,7 +75,6 @@ def simple_outlier_stress(y, outlier_mask, add_n=add_outliers, factor=stress_fac
     random_idx = np.random.choice(len(y), size=add_n, replace=False)
     # gabungkan
     stressed_idx = np.unique(np.concatenate([existing_idx, random_idx]))
-
     # kalikan
     y_stress.iloc[stressed_idx] = y_stress.iloc[stressed_idx] * factor
 
