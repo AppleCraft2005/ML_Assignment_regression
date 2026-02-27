@@ -8,6 +8,10 @@
 
 # Perbandingan Linear Regression vs Huber Regressor pada Prediksi Emisi CO
 
+## Link Video Youtube
+
+ [Youtube](https://youtu.be/pBcB7GQWvmU)
+
 ## Ringkasan
 
 Proyek ini membandingkan dua model regresi untuk memprediksi variabel `CO` dari data turbin gas pada file `gt_2015.csv`:
